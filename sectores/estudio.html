@@ -1,0 +1,146 @@
+
+<section class="fabro-study">
+  <style>
+    .fabro-study {
+      font-family: Inter, system-ui, sans-serif;
+      color: #202938;
+      padding: 24px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .study-hero {
+      background: linear-gradient(120deg,#eef3ff,#f7f9fc);
+      border: 1px solid #e1e8f2;
+      padding: 28px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .study-hero h1 {font-size: 30px;margin:0 0 8px}
+    .study-hero p {color:#68758a;line-height:1.6}
+    .study-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+    .study-card {
+      background:white;
+      border:1px solid #e5e9f0;
+      border-radius:16px;
+      padding:20px;
+      text-align:left;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .study-card:hover {
+      transform:translateY(-3px);
+      border-color:#8199d6;
+      box-shadow:0 8px 24px #1d315015;
+    }
+    .study-icon {font-size:27px}
+    .study-card h3 {margin:12px 0 6px}
+    .study-card p {color:#718096;font-size:14px;line-height:1.5}
+    .study-panel {
+      margin-top:22px;
+      border:1px solid #e5e9f0;
+      border-radius:16px;
+      padding:20px;
+      background:#fafbfd;
+    }
+    .study-panel textarea {
+      width:100%;min-height:130px;box-sizing:border-box;
+      border:1px solid #dce3ed;border-radius:12px;
+      padding:13px;font:inherit;resize:vertical;
+    }
+    .study-btn {
+      background:#263f72;color:white;border:0;
+      padding:11px 17px;border-radius:10px;
+      cursor:pointer;margin-top:10px;
+    }
+    .study-output {
+      white-space:pre-wrap;line-height:1.7;
+      margin-top:15px;color:#35445a;
+    }
+  </style>
+
+  <header class="study-hero">
+    <span>FABRO 2.0 · APRENDIZAJE</span>
+    <h1>ESTUDIO</h1>
+    <p>Tu espacio inteligente para aprender, investigar,
+    organizar conocimientos y alcanzar tus objetivos académicos.</p>
+  </header>
+
+  <div class="study-grid">
+    <button class="study-card" data-tool="Apuntes inteligentes">
+      <span class="study-icon">📝</span>
+      <h3>Apuntes inteligentes</h3>
+      <p>Organizá clases, conceptos, definiciones y observaciones.</p>
+    </button>
+    <button class="study-card" data-tool="Resúmenes">
+      <span class="study-icon">📚</span>
+      <h3>Resúmenes</h3>
+      <p>Prepará material de estudio y síntesis temáticas.</p>
+    </button>
+    <button class="study-card" data-tool="Preparación de exámenes">
+      <span class="study-icon">🎓</span>
+      <h3>Exámenes</h3>
+      <p>Preguntas, simulacros y preparación oral.</p>
+    </button>
+    <button class="study-card" data-tool="Investigación">
+      <span class="study-icon">🔬</span>
+      <h3>Investigación</h3>
+      <p>Problemas, hipótesis, fuentes y proyectos.</p>
+    </button>
+    <button class="study-card" data-tool="Organización académica">
+      <span class="study-icon">📅</span>
+      <h3>Organización</h3>
+      <p>Materias, objetivos y planificación de estudio.</p>
+    </button>
+    <button class="study-card" data-tool="Biblioteca">
+      <span class="study-icon">📖</span>
+      <h3>Biblioteca</h3>
+      <p>Organizá libros, documentos y materiales.</p>
+    </button>
+  </div>
+
+  <div class="study-panel">
+    <h2 id="study-title">Tu espacio de trabajo</h2>
+    <p id="study-description">Seleccioná una herramienta para comenzar.</p>
+    <textarea id="study-input" placeholder="Escribí aquí tu tema, apuntes o contenido..."></textarea>
+    <button class="study-btn" id="study-save">Guardar apuntes</button>
+    <div id="study-output" class="study-output"></div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.currentScript.closest('.fabro-study');
+      if (!root || root.dataset.initialized) return;
+      root.dataset.initialized = 'true';
+
+      const title = root.querySelector('#study-title');
+      const description = root.querySelector('#study-description');
+      const input = root.querySelector('#study-input');
+      const output = root.querySelector('#study-output');
+
+      root.querySelectorAll('[data-tool]').forEach(button => {
+        button.addEventListener('click', () => {
+          const tool = button.dataset.tool;
+          title.textContent = tool;
+          description.textContent =
+            'Estás trabajando en: ' + tool +
+            '. Escribí tu contenido en el espacio de trabajo.';
+          input.focus();
+        });
+      });
+
+      root.querySelector('#study-save').addEventListener('click', () => {
+        const content = input.value.trim();
+        if (!content) {
+          output.textContent = 'Primero escribí algún contenido.';
+          return;
+        }
+        output.textContent =
+          'Apunte registrado en esta sesión:\n\n' + content;
+      });
+    })();
+  </script>
+</section>
